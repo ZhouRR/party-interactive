@@ -1,0 +1,19 @@
+{
+  "name": "party-interactive",
+  "version": "0.0.5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "weui-miniprogram": "^0.2.0"
+  },
+  "keywords": [],
+  "author": "ohs",
+  "license": "ISC",
+  "devDependencies": {},
+  "description": ""
+}

@@ -1,0 +1,128 @@
+<!--index.wxml-->
+<import src="../../common/head.wxml" />
+<import src="../../common/foot.wxml" />
+
+<mp-navigation-bar loading="{{loading}}" show="{{show}}" animated="{{animated}}" color="{{color}}" background="{{background}}" title="Happy New Year" back="{{back}}"></mp-navigation-bar>
+<view class="container">
+  <template is="head" data="{{head: avatar, name: realName, isHome: isHome}}"/>
+  <image class='container-background' src="../../resource/background.png" mode="widthFix"></image>
+  <view class="page-body">
+    <view wx:if="{{!hasUserInfo && !hasStaff}}">
+      <view class="userinfo">
+        <view wx:if="{{!hasUserInfo && canIUse}}" class="button-sp-area">
+          <button type="primary" plain="true" open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像昵称</button>
+        </view>
+        <block wx:else>
+          <image wx:if="{{!hasStaff}}" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+          <block wx:else>
+          </block>
+          <text wx:if="{{!hasStaff}}" class="userinfo-nickname">{{userInfo.nickName}}</text>
+          <block wx:else>
+          </block>
+        </block>
+      </view>
+    </view>
+    <block wx:else>
+      <view wx:if="{{!hasStaff}}">
+        <text wx:if="{{!hasUserInfo && canIUse}}" class="user-motto">{{motto}}</text>
+        <block wx:else>
+          <view class="page-section page-staff-bind">
+            <view class="weui-cells__title">请输入您的工号</view>
+            <view class="weui-cells weui-cells_after-title">
+              <view class="weui-cell weui-cell_input">
+                <input class="weui-input" maxlength="7" bindinput="bindKeyInput" placeholder="最大输入长度为7"/>
+              </view>
+            </view>
+          </view>
+          <view class="btn-area" id="buttonContainer">
+            <view class="button-sp-area">
+              <button type="primary" plain="true" bindtap="tapInputButton">确定</button>
+            </view>
+          </view>
+        </block>
+      </view>
+      <block wx:else>
+        <view wx:if="{{desc == '等待中'}}"></view>
+        <block wx:else>
+          <view class="page-section page-section-gap">
+            <view class="text-box text-box-prize-name" scroll-y="false">
+              <text>{{prize}}</text>
+            </view>
+          </view>
+          <view class="activity-number">
+            <image class='activity-number-background' src="../../resource/activity-background.png" mode="widthFix"></image>
+            <view class="text-box-activity-number-container">
+              <view class="text-box-activity-number">
+                <text>{{processingNumber}}</text>
+              </view>
+              <view class="text-box-activity-number text-box-activity-number-sum">
+                <text>/{{prizeCount}}</text>
+              </view>
+            </view>
+            <view class="text-box-activity-number text-box-activity-number-memo">
+              <text>本轮奖品</text>
+            </view>
+          </view>
+          <view wx:if="{{winningRate != 0}}">
+            <view class="page-section page-section-gap join-progress-container">
+              <image class='prize-background-next' src="{{prizeBackgroundNext}}"></image>
+              <image class='prize-background' src="{{prizeBackground}}" mode="widthFix"></image>
+            </view>
+            <view class="page-section page-section-gap activity-info-container">
+              <image class='activity-info-background' src="../../resource/activity-info.png" mode="widthFix"></image>
+              <view class="activity-info-line-container">
+                <view class="activity-info-line1-container">
+                  <view class="text-box-activity-info">
+                    <text>当前参与人数:</text>
+                  </view>
+                  <view class="text-box-activity-info text-box-activity-info-count">
+                    <text>{{processingCount}}</text>
+                  </view>
+                  <view class="text-box-activity-info">
+                    <text>人</text>
+                  </view>
+                </view>
+                <view class="activity-info-line1-container">
+                  <view class="text-box-activity-info">
+                    <text>获奖概率:</text>
+                  </view>
+                  <view class="text-box-activity-info text-box-activity-info-count">
+                    <text>{{winningRate}}</text>
+                  </view>
+                </view>
+                <view class="activity-info-line1-container">
+                  <view class="text-box-activity-info">
+                    <text>您还剩余</text>
+                  </view>
+                  <view class="text-box-activity-info text-box-activity-info-count">
+                    <text>{{remainingCount}}</text>
+                  </view>
+                  <view class="text-box-activity-info">
+                    <text>次抽奖机会</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <block wx:else>
+          </block>
+        </block>
+        <view class="btn-area" id="buttonContainer">
+          <view class="button-join-area">
+            <image wx:if="{{!canIJoin}}" class='button-join-background' src="../../resource/join-dis.png" mode="widthFix"></image>
+            <block wx:else>
+              <image class='button-join-background' src="../../resource/join.png" mode="widthFix"></image>
+              <button class='button-join' plain="true" bindtap="tapJoinButton" disabled="{{!canIJoin}}"></button>
+            </block>
+          </view>
+          <view class="remaining-times-container">
+            <image class='.remaining-times' src="../../resource/times-{{remainingCount}}.png" mode="widthFix"></image>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+  <mp-dialog title="活动" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
+    <view>确定要参加本轮活动?</view>
+  </mp-dialog>
+</view>
