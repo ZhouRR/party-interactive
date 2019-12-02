@@ -49,6 +49,7 @@ App({
     times: 0,
     winning: '',
     socketOpen: false,
-    socketMsgQueue: []
+    socketMsgQueue: [],
+    socketCheck:false
   }
 })

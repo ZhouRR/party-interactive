@@ -9,6 +9,9 @@ Page({
   data: {
     isHome: false,
     tag: '002',
+    inputValue: '',
+    processingNumber: 1,
+    logos: ['../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/easter-egg-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/easter-egg-2.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/easter-egg-3.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/easter-egg-4.png', '../../resource/prize-unknown-2.png', '../../resource/prize-unknown-2.png'],
 
     loading: config.loading,
     color: config.color,
@@ -20,9 +23,14 @@ Page({
   onLoad: function () {
   },
   onShow: function () {
+    if (app.globalData.userInfo) {
+      api.login(this, app)
+    }
   },
   onPullDownRefresh() {
-    wx.stopPullDownRefresh()
+    if (app.globalData.userInfo) {
+      api.login(this, app)
+    }
   },
   tapToBack(e) {
     wx.navigateBack({

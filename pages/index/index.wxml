@@ -63,49 +63,60 @@
               <text>本轮奖品</text>
             </view>
           </view>
-          <view wx:if="{{winningRate != 0}}">
-            <view class="page-section page-section-gap join-progress-container">
-              <image class='prize-background-next' src="{{prizeBackgroundNext}}"></image>
-              <image class='prize-background' src="{{prizeBackground}}" mode="widthFix"></image>
-            </view>
-            <view class="page-section page-section-gap activity-info-container">
-              <image class='activity-info-background' src="../../resource/activity-info.png" mode="widthFix"></image>
-              <view class="activity-info-line-container">
-                <view class="activity-info-line1-container">
-                  <view class="text-box-activity-info">
-                    <text>当前参与人数:</text>
-                  </view>
-                  <view class="text-box-activity-info text-box-activity-info-count">
-                    <text>{{processingCount}}</text>
-                  </view>
-                  <view class="text-box-activity-info">
-                    <text>人</text>
-                  </view>
+          <view class="page-section page-section-gap join-progress-container">
+            <image class='prize-background-next' src="{{prizeBackgroundNext}}"></image>
+            <image class='prize-background' src="{{prizeBackground}}" mode="widthFix"></image>
+            <image class='prize-content' src="{{prizeContent}}" mode="widthFix"></image>
+          </view>
+          <view class="page-section page-section-gap activity-info-container">
+            <image class='activity-info-background' src="../../resource/activity-info.png" mode="widthFix"></image>
+            <view wx:if="{{winningRate != 0}}" class="activity-info-line-container">
+              <view class="activity-info-line1-container">
+                <view class="text-box-activity-info">
+                  <text>当前参与人数:</text>
                 </view>
-                <view class="activity-info-line1-container">
-                  <view class="text-box-activity-info">
-                    <text>获奖概率:</text>
-                  </view>
-                  <view class="text-box-activity-info text-box-activity-info-count">
-                    <text>{{winningRate}}</text>
-                  </view>
+                <view class="text-box-activity-info text-box-activity-info-count">
+                  <text>{{processingCount}}</text>
                 </view>
-                <view class="activity-info-line1-container">
-                  <view class="text-box-activity-info">
-                    <text>您还剩余</text>
-                  </view>
-                  <view class="text-box-activity-info text-box-activity-info-count">
-                    <text>{{remainingCount}}</text>
-                  </view>
-                  <view class="text-box-activity-info">
-                    <text>次抽奖机会</text>
-                  </view>
+                <view class="text-box-activity-info">
+                  <text>人</text>
+                </view>
+              </view>
+              <view class="activity-info-line1-container">
+                <view class="text-box-activity-info">
+                  <text>获奖概率:</text>
+                </view>
+                <view class="text-box-activity-info text-box-activity-info-count">
+                  <text>{{winningRate}}</text>
+                </view>
+              </view>
+              <view class="activity-info-line1-container">
+                <view class="text-box-activity-info">
+                  <text>您还剩余</text>
+                </view>
+                <view class="text-box-activity-info text-box-activity-info-count">
+                  <text>{{remainingCount}}</text>
+                </view>
+                <view class="text-box-activity-info">
+                  <text>次抽奖机会</text>
                 </view>
               </view>
             </view>
+            <block wx:else>
+              <view class="activity-info-line-result-container">
+                <view class="activity-info-line1-container">
+                  <view wx:if="{{!shooting}}" class="text-box-activity-info text-box-activity-info-count">
+                    <text>很遗憾,您未能入围</text>
+                  </view>
+                  <block wx:else>
+                    <view class="text-box-activity-info text-box-activity-info-count text-box-activity-info-count-result">
+                      <text>恭喜,您已入围</text>
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </block>
           </view>
-          <block wx:else>
-          </block>
         </block>
         <view class="btn-area" id="buttonContainer">
           <view class="button-join-area">

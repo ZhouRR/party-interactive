@@ -6,7 +6,7 @@
       <text class='page-head-name'>{{name}}</text>
     </view>
     <block wx:else>
-      <image class="page-head-back" src="../../resource/route.png" bindtap="tapToBack" mode="widthFix"></image>
+      <image class="page-head-back" src="../../resource/route-back.png" bindtap="tapToBack" mode="widthFix"></image>
     </block>
     <image wx:if="{{isHome}}" class="page-head-route" src="../../resource/route.png" bindtap="tapToNext" mode="widthFix"></image>
     <block wx:else>

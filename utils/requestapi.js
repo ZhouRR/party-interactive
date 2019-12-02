@@ -45,10 +45,10 @@ const log = (message) => {
   }
 }
 
-const login = (page, app) => {
+const login = (page, app, complete) => {
+  connectCheck.reset(page, app)
+  app.globalData.socketCheck = false
   if (app.globalData.socketOpen) {
-    connectCheck.reset(page, app)
-    heartCheck.reset()
     wx.closeSocket()
   }
   page.setData({
@@ -90,10 +90,17 @@ const login = (page, app) => {
               remainingCount: res.data.staff.times,
               winningPrize: res.data.staff.prize == '' ? '还未中奖' : res.data.staff.prize,
               processingNumber: res.data.processing_number,
+              prizeContent: findPrizeImage(res.data.processing_number),
               prizeCount: res.data.prize_count
             })
-            if (!app.globalData.socketOpen && page.data.tag == '001') {
+            if (!app.globalData.socketOpen) {
               connectWS(page, app)
+            }
+            if (page.data.tag == '002') {
+              updateRoute(page)
+            }
+            if (complete != undefined) {
+              complete(page)
             }
           }else{
             // app.globalData.staffId = ''
@@ -123,9 +130,11 @@ const login = (page, app) => {
               })
             }else{
               page.setData({
+                prizeBackground: findImage(res.data.winning_rate, 1),
                 processingCount: '',
                 winningRate: 0,
                 canIJoin: false,
+                shooting: res.data.shooting
               })
             }
           } else {
@@ -149,7 +158,10 @@ let heartCheck = {
   timeout: 10000,
   timeoutObj: null,
   serverTimeoutObj: null,
-  reset: function () {
+  app: null,
+
+  reset: function (app) {
+    this.app = app
     clearTimeout(this.timeoutObj);
     clearTimeout(this.serverTimeoutObj);
     return this;
@@ -170,7 +182,7 @@ let heartCheck = {
 }
 
 let connectCheck = {
-  timeout: 1000,
+  timeout: 3000,
   timeoutObj: null,
   serverTimeoutObj: null,
   page: null,
@@ -185,11 +197,9 @@ let connectCheck = {
   },
   start: function () {
     this.timeoutObj = setTimeout(() => {
+      log('connect check')
       if (this.app != undefined && this.app.globalData.socketOpen == false){
         connectWS(this.page, this.app)
-        this.reset(this.page, this.app).start()
-      }else{
-        this.reset(this.page, this.app).start()
       }
     }, this.timeout);
   }
@@ -206,15 +216,16 @@ const connectWS = (page, app) => {
       sendSocketMessage(app, app.globalData.socketMsgQueue[i])
     }
     app.globalData.socketMsgQueue = []
-    heartCheck.reset().start()
-    connectCheck.reset(page, app).start()
+    heartCheck.reset(app).start()
+    connectCheck.reset(page, app)
+    app.globalData.socketCheck = true
   })
   wx.onSocketMessage(function (res) {
     log(JSON.stringify(res))
     let data = JSON.parse(res.data)
     // 收到消息
     if (data.message.message == 'pong') {
-      heartCheck.reset().start()
+      heartCheck.reset(app).start()
     } else {
       let message = data.message.message
       switch (message.activity) {
@@ -230,6 +241,9 @@ const connectWS = (page, app) => {
             winningRate: joinRate(message.processing_count)
           })
           break;
+        case '003':
+          login(page, app)
+          break;
         default:
           log('default')
       }
@@ -238,12 +252,18 @@ const connectWS = (page, app) => {
   wx.onSocketError(function (res) {
     log('socket error')
     app.globalData.socketOpen = false
-    heartCheck.reset()
+    heartCheck.reset(app)
+    if (app.globalData.socketCheck){
+      connectCheck.reset(page, app).start()
+    }
   })
   wx.onSocketClose(function (res) {
     log('socket close')
     app.globalData.socketOpen = false
-    heartCheck.reset()
+    heartCheck.reset(app)
+    if (app.globalData.socketCheck) {
+      connectCheck.reset(page, app).start()
+    }
   })
 }
 
@@ -263,7 +283,7 @@ function joinRate(processing_count) {
 }
 
 function findImage(processing_count, add) {
-  let index = Math.ceil(processing_count/100 * 17) + add;
+  let index = Math.ceil(processing_count/60 * 17) + add;
   if(index < 1){
     index = 1;
   }else if(index > 17){
@@ -271,6 +291,33 @@ function findImage(processing_count, add) {
   }
   let image = config.imageUrl + index + '.png'
   return image;
+}
+
+function findPrizeImage(processing_number) {
+  let image = config.prizeUrl + (parseInt(processing_number)+48) + '.png'
+  return image;
+}
+
+function updateRoute(page) {
+  let logos = new Array();
+  let normalCount = 14
+  let processingNumber = parseInt(page.data.processingNumber)
+  for (let i = 1; i <= page.data.logos.length; i++) {
+    if (i <= processingNumber && i < normalCount) {
+      logos.push(config.logoUrl + '' + i + '.png')
+    } else if (i <= processingNumber && i >= normalCount) {
+      logos.push(config.logoUrl + 'V' + (i - normalCount + 1) + '.png')
+    } else if (i == processingNumber + 1 && i < normalCount) {
+      logos.push(config.logoUrl + 'logo' + i + '.png')
+    } else if (i == processingNumber + 1 && i >= normalCount) {
+      logos.push(config.logoUrl + 'logoV' + (i - normalCount + 1) + '.png')
+    } else {
+      logos.push(page.data.logos[i - 1])
+    }
+  }
+  page.setData({
+    logos: logos
+  })
 }
 
 module.exports = {

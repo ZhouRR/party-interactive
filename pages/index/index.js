@@ -24,10 +24,11 @@ Page({
     winningRate: 0,
     prize: '',
     remainingCount: 0,
-    winningPrize: '还未中奖',
+    shooting: 'false',
     dialogShow: false,
     prizeBackground: '../../resource/prize-background-1.png',
     prizeBackgroundNext: '../../resource/prize-background-1.png',
+    prizeContent: '../../resource/02-49.png',
 
     loading: config.loading,
     color: config.color,

@@ -5,7 +5,7 @@
 // 此处主机域名是腾讯云解决方案分配的域名
 // 小程序后台服务解决方案：https://www.qcloud.com/solution/la
 
-const prefix = 'http'
+const prefix = 'https'
 
 const ws_prefix = prefix == 'https'?'wss':'ws'
 const host = prefix == 'https' ? 'ait.ohsyun.com/interactive_api':'192.168.203.102:8098/interactive_api'
@@ -18,6 +18,8 @@ const config = {
   appSecret: 'fe966f7c89ba08eccd70060f2b3f9801',
 
   imageUrl: 'https://tokyometo.oss-cn-shanghai.aliyuncs.com/Interactive-Wechat/prize-background-',
+  logoUrl: 'https://tokyometo.oss-cn-shanghai.aliyuncs.com/Interactive-Wechat/02_',
+  prizeUrl: 'https://tokyometo.oss-cn-shanghai.aliyuncs.com/Interactive-Wechat/02-',
   // imageUrl: '../../resource/prize-background-',
 
   // 验证员工身份

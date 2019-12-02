@@ -84,6 +84,7 @@ button{
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .prize-background{
   width: 70%;
@@ -91,6 +92,9 @@ button{
 .prize-background-next{
   width: 0rpx;
   height:0rpx;
+}
+.prize-content{
+  width: 250rpx;
   position: absolute;
 }
 .activity-info-container{
@@ -126,6 +130,18 @@ button{
   margin-right: 20rpx;
   color: #ffe65a;
   font-size: 50rpx;
+}
+.activity-info-line-result-container{
+  height:250rpx;
+  position: absolute;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.text-box-activity-info-count-result{
+  color: #ff0022;
 }
 .button-join-area{
   margin-top: -20rpx;
