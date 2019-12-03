@@ -46,6 +46,13 @@ const log = (message) => {
 }
 
 const login = (page, app, complete) => {
+  if (app.globalData.userInfo == null){
+    page.setData({
+      loading: false
+    })
+    wx.stopPullDownRefresh()
+    return
+  }
   connectCheck.reset(page, app)
   app.globalData.socketCheck = false
   if (app.globalData.socketOpen) {
@@ -66,8 +73,6 @@ const login = (page, app, complete) => {
           'iv': app.globalData.iv,
           'nickName': app.globalData.userInfo.nickName,
           'avatarUrl': app.globalData.userInfo.avatarUrl,
-          'appId': config.appId,
-          'appSecret': config.appSecret,
           'code': app.globalData.code,
           'staffId': page.data.inputValue
         }, (res) => {
@@ -278,7 +283,7 @@ function sendSocketMessage(app, msg) {
 }
 
 function joinRate(processing_count) {
-  let rate = processing_count == 0 ? 100 : (1 / processing_count * 100).toFixed(0)+'%'
+  let rate = processing_count == 0 ? 100 + '%' : (1 / processing_count * 100).toFixed(0)+'%'
   return rate;
 }
 

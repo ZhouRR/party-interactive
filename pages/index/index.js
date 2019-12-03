@@ -79,14 +79,16 @@ Page({
     }
   },
   getUserInfo: function (e) {
-    app.globalData.userInfo = e.detail.userInfo
-    app.globalData.encryptedData = e.detail.encryptedData
-    app.globalData.iv = e.detail.iv
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-    api.login(this, app)
+    if (e.detail.userInfo != undefined){
+      app.globalData.userInfo = e.detail.userInfo
+      app.globalData.encryptedData = e.detail.encryptedData
+      app.globalData.iv = e.detail.iv
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+      api.login(this, app)
+    }
   },
   bindKeyInput(e) {
     this.setData({

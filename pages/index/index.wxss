@@ -9,10 +9,12 @@ button{
   margin: 0 auto;
   width: 60%;
 }
-.user-motto{
-  justify-content: left;
-  align-items: left;
-  text-align: left;
+.button-sp1-area{
+  margin-top: 100rpx;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }
 .page-staff-bind{
   margin-top: 150rpx;

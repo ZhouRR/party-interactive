@@ -11,7 +11,7 @@ Page({
     tag: '002',
     inputValue: '',
     processingNumber: 1,
-    logos: ['../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/easter-egg-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/easter-egg-2.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/easter-egg-3.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/easter-egg-4.png', '../../resource/prize-unknown-2.png', '../../resource/prize-unknown-2.png'],
+    logos: ['../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-2.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-2.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-2.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-1.png', '../../resource/prize-unknown-2.png', '../../resource/easter-egg-1.png', '../../resource/easter-egg-2.png'],
 
     loading: config.loading,
     color: config.color,

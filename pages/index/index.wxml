@@ -8,19 +8,14 @@
   <image class='container-background' src="../../resource/background.png" mode="widthFix"></image>
   <view class="page-body">
     <view wx:if="{{!hasUserInfo && !hasStaff}}">
-      <view class="userinfo">
-        <view wx:if="{{!hasUserInfo && canIUse}}" class="button-sp-area">
-          <button type="primary" plain="true" open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像昵称</button>
+      <view wx:if="{{!hasUserInfo && canIUse}}" class="button-sp1-area">
+        <view class="text-box-activity-info">
+          <text>欢迎参加OHS2019忘年会,请允许获取您的头像和昵称并在稍后输入工号以参加抽奖活动</text>
         </view>
-        <block wx:else>
-          <image wx:if="{{!hasStaff}}" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-          <block wx:else>
-          </block>
-          <text wx:if="{{!hasStaff}}" class="userinfo-nickname">{{userInfo.nickName}}</text>
-          <block wx:else>
-          </block>
-        </block>
+        <button type="primary" style="margin-top:30rpx;" plain="true" open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像昵称</button>
       </view>
+      <block wx:else>
+      </block>
     </view>
     <block wx:else>
       <view wx:if="{{!hasStaff}}">

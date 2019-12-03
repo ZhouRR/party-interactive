@@ -14,8 +14,6 @@ const config = {
 
   // 下面的地址配合云端 Server 工作
   host,
-  appId: 'wxb10693ce301b0503',
-  appSecret: 'fe966f7c89ba08eccd70060f2b3f9801',
 
   imageUrl: 'https://tokyometo.oss-cn-shanghai.aliyuncs.com/Interactive-Wechat/prize-background-',
   logoUrl: 'https://tokyometo.oss-cn-shanghai.aliyuncs.com/Interactive-Wechat/02_',
