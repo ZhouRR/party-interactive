@@ -45,7 +45,7 @@ const log = (message) => {
   }
 }
 
-const login = (page, app, complete) => {
+const login = (page, app, logout) => {
   if (app.globalData.userInfo == null){
     page.setData({
       loading: false
@@ -61,6 +61,9 @@ const login = (page, app, complete) => {
   page.setData({
     loading: true
   })
+  if (logout == undefined){
+    logout = '0'
+  }
   // 登录
   wx.login({
     success: res => {
@@ -74,7 +77,8 @@ const login = (page, app, complete) => {
           'nickName': app.globalData.userInfo.nickName,
           'avatarUrl': app.globalData.userInfo.avatarUrl,
           'code': app.globalData.code,
-          'staffId': page.data.inputValue
+          'staffId': page.data.inputValue,
+          'logout': logout
         }, (res) => {
           page.setData({
             loading: false
@@ -104,9 +108,6 @@ const login = (page, app, complete) => {
             if (page.data.tag == '002') {
               updateRoute(page)
             }
-            if (complete != undefined) {
-              complete(page)
-            }
           }else{
             // app.globalData.staffId = ''
             app.globalData.token = ''
@@ -114,7 +115,8 @@ const login = (page, app, complete) => {
             app.globalData.times = 0
             app.globalData.winning = '还未中奖'
             page.setData({
-              hasStaff: false
+              hasStaff: false,
+              realName: ''
             })
           }
           if (res.data.activity != undefined) {

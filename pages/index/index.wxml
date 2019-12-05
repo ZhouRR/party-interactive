@@ -22,7 +22,7 @@
         <text wx:if="{{!hasUserInfo && canIUse}}" class="user-motto">{{motto}}</text>
         <block wx:else>
           <view class="page-section page-staff-bind">
-            <view class="weui-cells__title">请输入您的工号</view>
+            <view style="color:#ffffff;" class="weui-cells__title">请输入您的工号</view>
             <view class="weui-cells weui-cells_after-title">
               <view class="weui-cell weui-cell_input">
                 <input class="weui-input" maxlength="7" bindinput="bindKeyInput" placeholder="最大输入长度为7"/>
@@ -101,7 +101,7 @@
               <view class="activity-info-line-result-container">
                 <view class="activity-info-line1-container">
                   <view wx:if="{{!shooting}}" class="text-box-activity-info text-box-activity-info-count">
-                    <text>很遗憾,您未能入围</text>
+                    <text>请等待下一轮抽奖</text>
                   </view>
                   <block wx:else>
                     <view class="text-box-activity-info text-box-activity-info-count text-box-activity-info-count-result">
@@ -128,7 +128,10 @@
       </block>
     </block>
   </view>
-  <mp-dialog title="活动" show="{{dialogShow}}" bindbuttontap="tapDialogButton" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
-    <view>确定要参加本轮活动?</view>
+  <mp-dialog title="{{dialogTitle}}" show="{{dialogShowJump}}" bindbuttontap="tapJoin" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
+    <view>{{dialogMemo}}</view>
+  </mp-dialog>
+  <mp-dialog title="{{dialogTitle}}" show="{{dialogShowLogout}}" bindbuttontap="tapLogout" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
+    <view>{{dialogMemo}}</view>
   </mp-dialog>
 </view>

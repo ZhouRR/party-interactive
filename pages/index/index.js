@@ -25,7 +25,6 @@ Page({
     prize: '',
     remainingCount: 0,
     shooting: 'false',
-    dialogShow: false,
     prizeBackground: '../../resource/prize-background-1.png',
     prizeBackgroundNext: '../../resource/prize-background-1.png',
     prizeContent: '../../resource/02-49.png',
@@ -35,7 +34,12 @@ Page({
     background: config.background,
     show: config.show,
     animated: config.animated,
-    back: config.back
+    back: config.back,
+
+    dialogShowJump: false,
+    dialogShowLogout: false,
+    dialogTitle: '',
+    dialogMemo: ''
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
@@ -98,9 +102,10 @@ Page({
   tapInputButton(e) {
     api.login(this, app)
   },
-  tapDialogButton(e) {
+  tapJoin(e) {
     this.setData({
-      dialogShow: false
+      dialogShowJump: false,
+      dialogShowLogout: false,
     })
     if(e.detail.index == 1){
       this.setData({
@@ -120,9 +125,36 @@ Page({
       )
     }
   },
+  tapLogout(e) {
+    this.setData({
+      dialogShowJump: false,
+      dialogShowLogout: false,
+    })
+    if (e.detail.index == 1) {
+      this.setData({
+        loading: true,
+        canIJoin: false
+      })
+      api.login(this, app, '1')
+    }
+  },
   tapJoinButton(e) {
     this.setData({
-      dialogShow: true
+      dialogShowJump: true,
+      dialogShowLogout: false,
+      dialogTitle: '抽奖',
+      dialogMemo: '确定要参与本轮抽奖?'
+    })
+  },
+  tapToLogout(e) {
+    if (!this.data.hasStaff){
+      return
+    }
+    this.setData({
+      dialogShowJump: false,
+      dialogShowLogout: true,
+      dialogTitle: '登出',
+      dialogMemo: '确定要登出?登出后您的微信将与当前工号解绑'
     })
   },
   tapToNext(e){
