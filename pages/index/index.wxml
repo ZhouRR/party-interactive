@@ -12,7 +12,10 @@
         <view class="text-box-activity-info">
           <text>欢迎参加OHS2019忘年会,请允许获取您的头像和昵称并在稍后输入工号以参加抽奖活动</text>
         </view>
-        <button type="primary" style="margin-top:30rpx;" plain="true" open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像昵称</button>
+        <view class="button-join-area button-weixin">
+          <image class='button-join-background' src="../../resource/confirm.png" mode="widthFix"></image>
+          <button type="primary" class='button-join' plain="true" open-type="getUserInfo" bindgetuserinfo="getUserInfo"></button>
+        </view>
       </view>
       <block wx:else>
       </block>
@@ -21,18 +24,18 @@
       <view wx:if="{{!hasStaff}}">
         <text wx:if="{{!hasUserInfo && canIUse}}" class="user-motto">{{motto}}</text>
         <block wx:else>
-          <view class="page-section page-staff-bind">
-            <view style="color:#ffffff;" class="weui-cells__title">请输入您的工号</view>
-            <view class="weui-cells weui-cells_after-title">
-              <view class="weui-cell weui-cell_input">
-                <input class="weui-input" maxlength="7" bindinput="bindKeyInput" placeholder="最大输入长度为7"/>
+          <view class="page-section page-section-gap">
+            <view class="login-tooltip-container">
+              <image class='login-tooltip' src="../../resource/login-tooltip.png" mode="widthFix"></image>
+              <image class='input-tooltip' src="../../resource/input-tooltip.png" mode="widthFix"></image>
+              <view class="input-staff input-radius">
+                <input class="weui-input input-content" maxlength="7" bindinput="bindKeyInput" placeholder="最大输入长度为7"/>
               </view>
             </view>
           </view>
-          <view class="btn-area" id="buttonContainer">
-            <view class="button-sp-area">
-              <button type="primary" plain="true" bindtap="tapInputButton">确定</button>
-            </view>
+          <view class="button-join-area button-login">
+            <image class='button-join-background' src="../../resource/confirm.png" mode="widthFix"></image>
+            <button class='button-join' plain="true" bindtap="tapInputButton"></button>
           </view>
         </block>
       </view>

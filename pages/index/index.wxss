@@ -19,6 +19,33 @@ button{
 .page-staff-bind{
   margin-top: 150rpx;
 }
+.login-tooltip-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-tooltip{
+  width:600rpx;
+}
+.input-tooltip{
+  margin-top: 80rpx;
+  width:280rpx;
+}
+.input-staff{
+  background: #fff;
+  margin-top: 40rpx;
+  width: 90%;
+  height: 88rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input-radius{
+  border-radius:25rpx;
+}
+.input-content{
+  width: 90%;
+}
 .page-section{
   margin-top: 20rpx;
   margin-bottom: 20rpx;
@@ -150,6 +177,12 @@ button{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.button-login{
+  margin-top: 180rpx;
+}
+.button-weixin{
+  margin-top: 30rpx;
 }
 .button-join-background{
   width: 60%;
