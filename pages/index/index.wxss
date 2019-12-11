@@ -34,7 +34,7 @@ button{
 .input-staff{
   background: #fff;
   margin-top: 40rpx;
-  width: 90%;
+  width: 95%;
   height: 88rpx;
   display: flex;
   flex-direction: column;
